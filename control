@@ -1,0 +1,6 @@
+Package: com.yourname.aliyunjump
+Name: AliyunJump
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: 阿里云自动跳转插件
