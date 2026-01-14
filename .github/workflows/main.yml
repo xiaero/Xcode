@@ -1,0 +1,29 @@
+name: Build Aliyun Tweak
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # 允许手动点击按钮开始编译
+
+jobs:
+  build:
+    runs-on: macos-latest # 建议只用 macos，最稳定
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3 # 这里会自动拉取你仓库里的 Tweak.x 和 Makefile
+
+      - name: Prepare Theos
+        uses: randomblock1/theos-action@main
+
+      - name: Build Dylib
+        run: |
+          make FINALPACKAGE=1
+          # 编译完成后，文件通常在 .theos/obj/debug/ 目录下
+
+      - name: Upload Dylib
+        uses: actions/upload-artifact@v3
+        with:
+          name: AliyunJump-Dylib
+          # 查找生成的 dylib 文件并上传
+          path: .theos/obj/AliyunJump.dylib
